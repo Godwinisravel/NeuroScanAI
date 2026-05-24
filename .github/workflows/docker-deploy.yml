@@ -1,13 +1,9 @@
-name: Build and Push Docker Image
+﻿name: Build and Push Docker Image
 
 on:
   push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -32,8 +28,8 @@ jobs:
         context: .
         push: true
         tags: |
-          Godwin31/neuroscan-ai:latest
-          Godwin31/neuroscan-ai:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/neuroscan-ai:latest
+          ${{ secrets.DOCKER_USERNAME }}/neuroscan-ai:${{ github.sha }}
     
     - name: Image digest
-      run: echo "Image pushed to Docker Hub - Godwin31/neuroscan-ai"
+      run: echo "✅ Image pushed to Docker Hub - Godwin31/neuroscan-ai"
